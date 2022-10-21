@@ -1,0 +1,32 @@
+{
+    "manifest_version" : 3,
+    "name" : "Chrome pet",
+    "version" : "1.0.0",
+    "description" : "testout chrome pet stuff",
+    "action" : {
+        "default_icon" : {
+            "16": "images/sketch_axolotl.png",   
+            "24": "images/sketch_axolotl.png",
+            "32": "images/sketch_axolotl.png"
+        },
+        "default_title" : "Chrome pet",
+        "default_popup": "popup.html"
+    },
+    
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions" : [
+        "<all_urls>"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources" : ["/images/*"],
+            "matches": ["<all_urls>"]
+        }
+    ]
+}
