@@ -75,13 +75,11 @@ $(document).ready(function readyHandler() {
     console.log(window.innerWidth);
 
     function walk() {
-        if (posLeft > window.innerWidth) {
+        if ($('.axl-container').offset().left > window.screen.availWidth) {
             console.log("triggered, " + posLeft);
             //posLeft = "100px";
-            $('.axl-container').css({
-                "left": "100px"
-            });
-            $('.axl-container').animate({left: "-=3px"}, 50);
+            $('.axl-container').offset({left: 0});
+            //$('.axl-container').animate({left: "-=3px"}, 50);
         } else {
             $('.axl-container').animate({left: "+=3px"}, 50);
         }
