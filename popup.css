@@ -1,22 +1,15 @@
 html *{
     background-color: #ffb7bd;
 }
-/*
-#drop{
-    height: 300px;
-    width: 300px;
-}
-#feed{
-    height: 300px;
-    width: 300px;
-}
-*/
 .columnItems{
     align-items: center;
+    flex: 0 0 200px;
 }
 #drop{
     color: black;
+    background-color: #ffb7bd;
 }
-#drop :hover{
+#drop:hover{
     color: gold;
+    background-color: crimson;
 }
