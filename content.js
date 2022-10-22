@@ -12,14 +12,6 @@ chrome.storage.sync.get('positionTop', function(result) {
     //     console.log('TopValue currently is ' + result.positionTop);
     // }  
     posTop = '790px';
-    console.log(result)
-    if (result.positionTop == undefined) {
-        posTop = '400px'
-        console.log('null, but set to 100, 400')
-    } else {
-        posTop = result.positionTop;
-        console.log('TopValue currently is ' + result.positionTop);
-    }
 });
 
 //set and get positionLeft
@@ -48,7 +40,6 @@ $(document).ready(function readyHandler() {
         "cursor": 'url('+ cursor +'), default'
     })
     $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg}));
-    $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg }));
     $(".axl-container").css({
         "z-index": "9999",
         "position": "fixed",
