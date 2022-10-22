@@ -6,10 +6,8 @@ html *{
     margin-bottom: 5px;
     font-size: 17px;
     color: white;
-    border-bottom: 50px;
-    border-width: medium;
-    align-self: left;
-    border-color: black;
+    display: inline-flex;
+    border: 1px black;
 }
 .columnItems{
    display: flex;
