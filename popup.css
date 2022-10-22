@@ -41,8 +41,10 @@ html *{
     height: 200px;
 }
 #title{
-    background-color: black;
+    background-color: #ffb7bd;
     margin-bottom: 5px;
     font-size: 17px;
-    
+    color: white;
+    border-bottom: 5px;
+    border-width: 5px;
 }
