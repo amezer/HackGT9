@@ -2,13 +2,6 @@ html *{
     background-color: #ffb7bd;
 }
 /*
-.Column items{
-    align-items: center;
-}
-#axolotl{
-    height: 300px;
-    width: 70%;
-}
 #drop{
     height: 300px;
     width: 300px;
@@ -18,3 +11,9 @@ html *{
     width: 300px;
 }
 */
+.columnItems{
+    align-items: center;
+}
+#axolotl{
+    flex-shrink: 2;
+}
