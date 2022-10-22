@@ -45,7 +45,7 @@ $(document).ready(function readyHandler() {
         "position": "fixed",
         "touch-action": "none",
         "left": posLeft,
-        "top": "790px"
+        "bottom": "0"
     });
     $("#axl").css({
         "width": "77px",
