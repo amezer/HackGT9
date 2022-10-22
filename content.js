@@ -21,7 +21,7 @@
 var posTop;
 var posLeft;
 var axlImg = chrome.runtime.getURL('/images/pet_axolotl.png');
-var carrot = chrome.runtime.getURL("./images/carrot1.png");
+
 //set and get positionTop
 chrome.storage.sync.get('positionTop', function(result) {
     console.log(result)
@@ -101,26 +101,18 @@ $(document).ready(function readyHandler() {
 
     setInterval(walk, 1000);
 }, () => chrome.runtime.lastError);
+const init = function() {
+    const injectElement = document.createElement('div')
+    injectElement.innerHTML = "helllllllooooo"
+    document.body.appendChild(injectElement)
+
+}
 
 const addCarrot = function() {
-    var container = $("<div class='carrot-container'></div>");
-    $("body").parent().append(container);
-    $(".carrot-container").prepend($('<img>', { id: "carrot", src: carrot }));
-    $(".carrot-container").css({
-        "z-index": "9999",
-        "position": "fixed",
-        "touch-action": "none",
-        "left": posLeft,
-        "top": posTop
-    });
-    $("#axl").css({
-        "width": "77px",
-        "height": "auto"
-    });
     console.log("add carrot")
-        // const img = document.createElement("img");
-        // img.src = chrome.runtime.getURL("./images/carrot1.png");
-        // document.body.appendChild(img);
+    const img = document.createElement("img");
+    img.src = chrome.runtime.getURL("./images/carrot1.png");
+    document.body.appendChild(img);
 }
 
 
@@ -136,4 +128,5 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.message === "carrot") {
         addCarrot()
     }
+
 });
