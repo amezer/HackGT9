@@ -6,6 +6,11 @@ mark.onmouseleave = function(){block.style.opacity = 0;};
 
 var dropBtn = document.getElementById('drop');
 dropBtn.onclick = function(){
+    if (dropBtn.innerHTML === "drop") {
+        dropBtn.innerHTML = "hide"
+    } else {
+        dropBtn.innerHTML = "drop"
+    }
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         console.log("sending drop to content...");
         chrome.tabs.sendMessage(tabs[0].id, {message: "drop"});

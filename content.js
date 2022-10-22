@@ -2,53 +2,65 @@ var axlImg = chrome.runtime.getURL('/images/pet_axolotl.png');
 var carrotImg = chrome.runtime.getURL("./images/carrot1.png");
 var carrotCount = 0;
 const maxCarrot = 10;
+var canAdd = true;
 const addPet = function() {
     $(document).ready(function readyHandler() {
-        var container = $("<div class='axl-container'></div>");
+        if (canAdd) {
+            var container = $("<div class='axl-container' id='axl-cont'></div>");
+            // initialize pet
+            $("body").parent().append(container);
+            var cursor = chrome.runtime.getURL("./images/carrot1.png");
+            $("body").css({
+                "cursor": 'url(' + cursor + '), default'
+            })
+            $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg }));
+            $(".axl-container").css({
+                "z-index": "9999",
+                "position": "fixed",
+                "touch-action": "none",
+                "left": '0px',
+                "bottom": "0"
+            });
+            $("#axl").css({
+                "width": "77px",
+                "height": "auto",
+                "position": "relative"
+                //"top": 0
+            });
 
-        // initialize pet
-        $("body").parent().append(container);
-        var cursor = chrome.runtime.getURL("./images/carrot1.png");
-        $("body").css({
-            "cursor": 'url(' + cursor + '), default'
-        })
-        $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg }));
-        $(".axl-container").css({
-            "z-index": "9999",
-            "position": "fixed",
-            "touch-action": "none",
-            "left": '0px',
-            "bottom": "0"
-        });
-        $("#axl").css({
-            "width": "77px",
-            "height": "auto",
-            "position": "relative"
-            //"top": 0
-        });
-
-        console.log(window.screen.availWidth);
-        var axlLeft = 0;
-        var windowWidth = window.screen.availWidth - 150;
-        var faceRight = true;
-        function walk() {
-            if (faceRight && (axlLeft < windowWidth)) {
-                //go right 
-                $('.axl-container').animate({ left: "+=3" }, 50, function(){axlLeft += 3});
-            } else if (axlLeft > windowWidth) {
-                //face left
-                faceRight = false;
-            } 
-            if (!faceRight && (axlLeft > 150)){
-                //go left
-                $('.axl-container').animate({ left: "-=3" }, 50, function(){axlLeft -= 3});
-            } else if (axlLeft < 150) {
-                //go right
-                faceRight = true;
+            console.log(window.screen.availWidth);
+            var axlLeft = 0;
+            var windowWidth = window.screen.availWidth + 25;
+            var faceRight = true;
+            canAdd = false;
+            function walk() {
+                checkCarrotPos(axlLeft);
+                if (faceRight && (axlLeft < windowWidth)) {
+                    //go right 
+                    $('.axl-container').animate({ left: "+=3" }, 50, function(){axlLeft += 3});
+                } else if (axlLeft > windowWidth) {
+                    //face left
+                    $('#axl').css({
+                        "transform" : "scaleX(-1)"
+                    });
+                    faceRight = false;
+                } 
+                if (!faceRight && (axlLeft > -20)){
+                    //go left
+                    $('.axl-container').animate({ left: "-=3" }, 50, function(){axlLeft -= 3});
+                } else if (axlLeft < -20) {
+                    //go right
+                    $('#axl').css({
+                        "transform" : "scaleX(1)"
+                    });
+                    faceRight = true;
+                }
             }
-            checkCarrotPos(axlLeft);
+            setInterval(walk, 50);
+        } else {
+            document.getElementsByClassName('axl-container')[0].remove();
+            canAdd = true;
         }
-        setInterval(walk, 50);
     }, () => chrome.runtime.lastError);
 }
 const carrotPos = [];
