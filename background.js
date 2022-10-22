@@ -1,17 +1,3 @@
-function addImg() {
-    console.log("add child");
-    const img = document.createElement('img');
-    const container = document.createElement('div');
-    img.src = chrome.runtime.getURL('/images/pet_axolotl.png');
-    img.style.position = "fixed";
-    img.style.zIndex = 9999;
-    container.classList.add("container");
-    container.append(img);
-    document.body.insertAdjacentElement("afterend", container);
-    document.body.appendChild(img);
-}
-
-
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete' && tab.active) {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -24,12 +10,12 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     }
 });
 
-const addCarrot = function() {
-    console.log("add carrot")
-    const img = document.createElement("img");
-    img.src = chrome.runtime.getURL("./images/carrot1.png");
-    document.body.appendChild(img);
-}
+// const addCarrot = function() {
+//     console.log("add carrot")
+//     const img = document.createElement("img");
+//     img.src = chrome.runtime.getURL("./images/carrot1.png");
+//     document.body.appendChild(img);
+// }
 
 chrome.omnibox.onInputStarted.addListener(function() {
     chrome.omnibox.setDefaultSuggestion({

@@ -1,46 +1,42 @@
 var axlImg = chrome.runtime.getURL('/images/pet_axolotl.png');
 var carrotImg = chrome.runtime.getURL("./images/carrot1.png");
 
+const addPet = function() {
+    $(document).ready(function readyHandler() {
+        var container = $("<div class='axl-container'></div>");
+
+        // initialize pet
+        $("body").parent().append(container);
+        var cursor = chrome.runtime.getURL("./images/carrot1.png");
+        $("body").css({
+            "cursor": 'url(' + cursor + '), default'
+        })
+        $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg }));
+        $(".axl-container").css({
+            "z-index": "9999",
+            "position": "fixed",
+            "touch-action": "none",
+            "left": '100px',
+            "bottom": "0"
+        });
+        $("#axl").css({
+            "width": "77px",
+            "height": "auto"
+        });
 
 
 
+        function walk() {
+            if ($('.axl-container').offset().left > window.screen.availWidth) {
 
-$(document).ready(function readyHandler() {
-    var container = $("<div class='axl-container'></div>");
-
-    // initialize pet
-    $("body").parent().append(container);
-    var cursor = chrome.runtime.getURL("./images/carrot1.png");
-    $("body").css({
-        "cursor": 'url(' + cursor + '), default'
-    })
-    $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg }));
-    $(".axl-container").css({
-        "z-index": "9999",
-        "position": "fixed",
-        "touch-action": "none",
-        "left": '100px',
-        "bottom": "0"
-    });
-    $("#axl").css({
-        "width": "77px",
-        "height": "auto"
-    });
-
-
-
-    function walk() {
-        if ($('.axl-container').offset().left > window.screen.availWidth) {
-
-            $('.axl-container').offset({ left: 0 });
-        } else {
-            $('.axl-container').animate({ left: "+=3px" }, 50);
+                $('.axl-container').offset({ left: 0 });
+            } else {
+                $('.axl-container').animate({ left: "+=3px" }, 50);
+            }
         }
-    }
-    setInterval(walk, 50);
-}, () => chrome.runtime.lastError);
-
-
+        setInterval(walk, 50);
+    }, () => chrome.runtime.lastError);
+}
 
 
 
@@ -91,11 +87,15 @@ function randomIntFromInterval(min, max) { // min and max included
 
 
 
+
 chrome.runtime.onMessage.addListener(function(request, sender) {
-    console.log("recieved message from background")
+    console.log("recieved message from " + sender);
     console.log(request.message);
     if (request.message === "carrot") {
         addCarrot()
     }
 
+    if (request.message === "drop") {
+        addPet();
+    }
 });
