@@ -5,11 +5,11 @@ html *{
     align-items: center;
     flex: 0 0 200px;
 }
-#drop{
+.drop{
     color: black;
     background-color: #ffb7bd;
 }
-#drop:hover{
+.drop:hover{
     color: gold;
     background-color: crimson;
 }
