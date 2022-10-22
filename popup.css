@@ -3,6 +3,8 @@ html *{
 }
 hr{
     background-color: white;
+    border-color: white;
+    height: 2px;
 }
 #title{
     background-color: #ffb7bd;
