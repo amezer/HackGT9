@@ -8,3 +8,11 @@ html *{
     height: 300px;
     width: 70%;
 }
+#drop{
+    height: 300px;
+    width: 300px;
+}
+#feed{
+    height: 300px;
+    width: 300px;
+}
