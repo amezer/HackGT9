@@ -12,10 +12,22 @@ html *{
     color: black;
     background-color: #ffb7bd;
     padding: 10px, 5px;
-    border: 5px solid purple;
+    /*border: 5px solid purple;*/
+    size: 30%;
 }
 #drop:hover{
-    color: gold;
+    color: white;
+    background-color: crimson;
+}
+#feed{
+    color: black;
+    background-color: #ffb7bd;
+    padding: 10px, 5px;
+    /*border: 5px solid purple;*/
+    size: 30%;
+}
+#feed:hover{
+    color: white;
     background-color: crimson;
 }
 #axolotl{
