@@ -70,6 +70,8 @@ hr{
     transition: opacity .35s;
     height: 200px;
     width: 200px;
+    right: 0;
+    bottom: 0;
 }
 #questionHover:hover{
     opacity: 1;
