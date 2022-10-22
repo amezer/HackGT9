@@ -1,6 +1,16 @@
 html *{
     background-color: #ffb7bd;
 }
+#title{
+    background-color: #ffb7bd;
+    margin-bottom: 5px;
+    font-size: 17px;
+    color: white;
+    border-bottom: 50px;
+    border-width: medium;
+    align-self: left;
+    border-color: black;
+}
 .columnItems{
    display: flex;
    flex-direction: column;
@@ -39,13 +49,4 @@ html *{
 #axolotl{
     width: 200px;
     height: 200px;
-}
-#title{
-    background-color: #ffb7bd;
-    margin-bottom: 5px;
-    font-size: 17px;
-    color: white;
-    border-bottom: 50px;
-    border-width: medium;
-    align-self: center;
 }
