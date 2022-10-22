@@ -6,8 +6,7 @@ html *{
     margin-bottom: 5px;
     font-size: 17px;
     color: white;
-    display: inline-flex;
-    border: 1px black;
+    border: 10px red;
 }
 .columnItems{
    display: flex;
