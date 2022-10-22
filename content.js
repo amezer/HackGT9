@@ -137,5 +137,3 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
         addCarrot()
     }
 });
-init()
-    // addCarrot()
