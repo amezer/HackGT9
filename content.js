@@ -21,7 +21,7 @@
 var posTop;
 var posLeft;
 var axlImg = chrome.runtime.getURL('/images/pet_axolotl.png');
-
+var carrot = chrome.runtime.getURL("./images/carrot1.png");
 //set and get positionTop
 chrome.storage.sync.get('positionTop', function(result) {
     console.log(result)
@@ -31,7 +31,7 @@ chrome.storage.sync.get('positionTop', function(result) {
     } else {
         posTop = result.positionTop;
         console.log('TopValue currently is ' + result.positionTop);
-    }  
+    }
 });
 
 //set and get positionLeft
@@ -46,7 +46,7 @@ chrome.storage.sync.get('positionLeft', function(result) {
     }
 });
 
-$(document).ready(function readyHandler(){
+$(document).ready(function readyHandler() {
     var container = $("<div class='axl-container'></div>");
 
     var animating = false;
@@ -54,7 +54,7 @@ $(document).ready(function readyHandler(){
     var axlContainer = $('.axl-container');
     // initialize pet
     $("body").parent().append(container);
-    $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg}));
+    $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg }));
     $(".axl-container").css({
         "z-index": "9999",
         "position": "fixed",
@@ -66,22 +66,23 @@ $(document).ready(function readyHandler(){
         "width": "77px",
         "height": "auto"
     });
+
     function setThePosition() {
         posLeft = $(".axl-container").css("left");
         posTop = $(".axl-container").offset().top;
-        
+
         if (posTop > window.screen.availHeight) {
             posTop = window.screen.availHeight - 100
         }
         console.log(window.screen.availWidth)
         if (posLeft > window.screen.availWidth) {
             posLeft = window.screen.availWidth - 100
-        }    
+        }
 
-        chrome.storage.sync.set({'positionLeft': posLeft}, function() {
+        chrome.storage.sync.set({ 'positionLeft': posLeft }, function() {
             console.log('posLeft is set to ' + posLeft);
         });
-        chrome.storage.sync.set({'positionTop': posTop}, function() {
+        chrome.storage.sync.set({ 'positionTop': posTop }, function() {
             console.log('posTop is set to ' + posTop);
         });
     }
@@ -92,26 +93,34 @@ $(document).ready(function readyHandler(){
         if (posLeft > window.innerWidth) {
             console.log("triggered, " + posLeft);
             posLeft = "100px";
-            $('.axl-container').animate({left: "-=5px"}, 100);
+            $('.axl-container').animate({ left: "-=5px" }, 100);
         } else {
-            $('.axl-container').animate({left: "+=5px"}, 100);
-        } 
+            $('.axl-container').animate({ left: "+=5px" }, 100);
+        }
     }
 
     setInterval(walk, 1000);
 }, () => chrome.runtime.lastError);
-const init = function() {
-    const injectElement = document.createElement('div')
-    injectElement.innerHTML = "helllllllooooo"
-    document.body.appendChild(injectElement)
-
-}
 
 const addCarrot = function() {
+    var container = $("<div class='carrot-container'></div>");
+    $("body").parent().append(container);
+    $(".carrot-container").prepend($('<img>', { id: "carrot", src: carrot }));
+    $(".carrot-container").css({
+        "z-index": "9999",
+        "position": "fixed",
+        "touch-action": "none",
+        "left": posLeft,
+        "top": posTop
+    });
+    $("#axl").css({
+        "width": "77px",
+        "height": "auto"
+    });
     console.log("add carrot")
-    const img = document.createElement("img");
-    img.src = chrome.runtime.getURL("./images/carrot1.png");
-    document.body.appendChild(img);
+        // const img = document.createElement("img");
+        // img.src = chrome.runtime.getURL("./images/carrot1.png");
+        // document.body.appendChild(img);
 }
 
 
