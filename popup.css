@@ -74,6 +74,7 @@ hr{
     bottom: 0;
     top: 0;
     left: 0;
+    margin: 25%;
 }
 #questionHover:hover{
     opacity: 1;
