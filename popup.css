@@ -4,3 +4,7 @@ html *{
 .Column items{
     align-items: center;
 }
+#axolotl{
+    height: 300px;
+    width: 70%;
+}
