@@ -1,29 +1,17 @@
-// function addImg(){
-//     //creating the img element of the axolotl
-//     const img = document.createElement('img');
-//     img.classList.add("axl");
-//     const container = document.createElement('div');
-//     img.src = chrome.runtime.getURL('/images/pet_axolotl.png');
-//     //container.style.zIndex = 9999;
-//     //container.style.left = 0;
-//     container.classList.add("pet-container");
-//     container.append(img);
-//     //container.style.position = "fixed";
-//     // img.style.width = "77px";
-//     // img.style.height = "auto";
-//     container.style.top = window.innerHeight - 80 + "px";
-//     document.body.insertAdjacentElement("afterend",container);
-// }
-
-// //adds axl to page
-// addImg();
-
 var posTop;
 var posLeft;
 var axlImg = chrome.runtime.getURL('/images/pet_axolotl.png');
-
 //set and get positionTop
 chrome.storage.sync.get('positionTop', function(result) {
+    // console.log(result)
+    // if (result.positionTop == undefined) {
+    //     posTop = '400px'
+    //     console.log('null, but set to 100, 400')
+    // } else {
+    //     posTop = result.positionTop;
+    //     console.log('TopValue currently is ' + result.positionTop);
+    // }  
+    posTop = '790px';
     console.log(result)
     if (result.positionTop == undefined) {
         posTop = '400px'
@@ -36,14 +24,15 @@ chrome.storage.sync.get('positionTop', function(result) {
 
 //set and get positionLeft
 chrome.storage.sync.get('positionLeft', function(result) {
-    console.log(result)
-    if (result.positionLeft == undefined) {
-        posLeft = '100px'
-        console.log('null, but set to 100, 400');
-    } else {
-        posLeft = result.positionLeft;
-        console.log('LeftValue currently is ' + result.positionLeft);
-    }
+    // console.log(result)
+    // if (result.positionLeft == undefined) {
+    //     posLeft = '100px'
+    //     console.log('null, but set to 100, 400');
+    // } else {
+    //     posLeft = result.positionLeft;
+    //     console.log('LeftValue currently is ' + result.positionLeft);
+    // }
+    posLeft = '100px';
 });
 
 $(document).ready(function readyHandler() {
@@ -54,6 +43,11 @@ $(document).ready(function readyHandler() {
     var axlContainer = $('.axl-container');
     // initialize pet
     $("body").parent().append(container);
+    var cursor = chrome.runtime.getURL("./images/carrot1.png");
+    $("body").css({
+        "cursor": 'url('+ cursor +'), default'
+    })
+    $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg}));
     $(".axl-container").prepend($('<img>', { id: "axl", src: axlImg }));
     $(".axl-container").css({
         "z-index": "9999",
@@ -92,14 +86,16 @@ $(document).ready(function readyHandler() {
     function walk() {
         if (posLeft > window.innerWidth) {
             console.log("triggered, " + posLeft);
-            posLeft = "100px";
-            $('.axl-container').animate({ left: "-=5px" }, 100);
+            //posLeft = "100px";
+            $('.axl-container').css({
+                "left": "100px"
+            });
+            $('.axl-container').animate({left: "-=3px"}, 50);
         } else {
-            $('.axl-container').animate({ left: "+=5px" }, 100);
+            $('.axl-container').animate({left: "+=3px"}, 50);
         }
     }
-
-    setInterval(walk, 1000);
+    setInterval(walk, 50);
 }, () => chrome.runtime.lastError);
 const init = function() {
     const injectElement = document.createElement('div')
