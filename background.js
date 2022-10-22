@@ -7,17 +7,22 @@ function addImg() {
     img.style.zIndex = 9999;
     container.classList.add("container");
     container.append(img);
-    document.body.insertAdjacentElement("afterend",container);
+    document.body.insertAdjacentElement("afterend", container);
     document.body.appendChild(img);
 }
 
-chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete' && tab.active) {
-        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             chrome.scripting.executeScript({
-                target : {tabId: tabs[0].id},
-                func : addImg
+                target: { tabId: tabs[0].id },
+                func: addImg
             });
         });
     }
-  })
+})
+
+// chrome.omnibox.onInputEnter.addListener(function(text) {
+//     alert("hello")
+//     chrome.tab.create({ url: "youtube.com" })
+// })
