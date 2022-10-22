@@ -42,15 +42,17 @@ $(document).ready(function readyHandler() {
 
 
 
-let stop = false;
-let rand = randomIntFromInterval(0, 5);
-let vY = 0.5;
-let vX = rand * 3;
-console.log(rand)
+
+
 const addCarrot = function() {
 
-    var container = $("<div class='carrot-container'></div>");
+    let rand = randomIntFromInterval(-1, 1);
+    while (rand < 0.5 && rand > -0.5) {
+        rand = randomIntFromInterval(-1, 1);
+    }
 
+
+    var container = $("<div class='carrot-container'></div>");
 
     // initialize pet
     $("body").parent().append(container);
@@ -60,43 +62,33 @@ const addCarrot = function() {
         "z-index": "9999",
         "position": "fixed",
         "touch-action": "none",
-        "left": '50px',
+        "left": '100px',
         "bottom": '300px'
     });
 
+    $('.carrot-container').animate({ bottom: "+=" + 65 + "px", left: "+=" + rand * 25 + "px" }, {
+        duration: 400,
+        specialEasing: {
+            top: "easeOutQuad",
+            left: "linear",
+        },
 
-    setInterval(function() { pop(rand) }, 10);
+    });
+    $('.carrot-container').animate({ bottom: "0", left: "+=" + rand * 50 + "px" }, {
+        duration: 800,
+        specialEasing: {
+            bottom: "easeOutBounce",
+            left: "linear",
+        },
+
+    });
 
 }
 
 function randomIntFromInterval(min, max) { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min)
+    return (Math.random() * (max - min + 1) + min)
 }
 
-function pop(rand) {
-
-    if (!stop) {
-        vY += 0.5;
-        console.log("top: " + $('.carrot-container').offset().top + "\navailHeight: " + window.screen.availHeight);
-        console.log("left: " + $('.carrot-container').offset().left + "\navailWidth: " + window.screen.availWidth);
-        if ($('.carrot-container').offset().top > window.screen.availHeight) {
-
-            $('.carrot-container').offset({ top: window.screen.availHeight - 30 });
-            stop = true;
-        } else {
-            $('.carrot-container').animate({ top: "+=" + vY + "px" }, 10);
-        }
-
-        if ($('.carrot-container').offset().left > window.screen.availWidth) {
-            //vx != -1;
-
-            $('.carrot-container').offset({ left: 0 });
-        } else {
-            $('.carrot-container').animate({ left: "+=" + vX + "px" }, 10);
-        }
-    }
-
-}
 
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
