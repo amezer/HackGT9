@@ -29,12 +29,22 @@ const addPet = function() {
 
         console.log(window.screen.availWidth);
         var axlLeft = 0;
-        var windowWidth = window.screen.availWidth;
+        var windowWidth = window.screen.availWidth - 150;
+        var faceRight = true;
         function walk() {
-            if (axlLeft > windowWidth) {
-                $('.axl-container').animate({ left: 0 }, 0, function(){axlLeft = 0});
-            } else {
+            if (faceRight && (axlLeft < windowWidth)) {
+                //go right 
                 $('.axl-container').animate({ left: "+=3" }, 50, function(){axlLeft += 3});
+            } else if (axlLeft > windowWidth) {
+                //face left
+                faceRight = false;
+            } 
+            if (!faceRight && (axlLeft > 150)){
+                //go left
+                $('.axl-container').animate({ left: "-=3" }, 50, function(){axlLeft -= 3});
+            } else if (axlLeft < 150) {
+                //go right
+                faceRight = true;
             }
             checkCarrotPos(axlLeft);
         }
@@ -48,8 +58,9 @@ const addCarrot = function() {
     while (rand < 0.5 && rand > -0.5) {
         rand = randomIntFromInterval(-1, 1);
     }
+    let spawnRand = randomIntFromInterval(100, 800);
     if (carrotCount == (maxCarrot-1)) {
-        console.log('no more carrots! get out!');
+        console.log('no more carrots!');
     } else {
         var container = $('<div class="carrot-container" id="carrot-'+carrotCount+'"></div>');
         // initialize pet
@@ -60,7 +71,7 @@ const addCarrot = function() {
             "z-index": "9999",
             "position": "fixed",
             "touch-action": "none",
-            "left": '100px',
+            "left": spawnRand +'px',
             "bottom": '300px'
         });
     
@@ -82,7 +93,7 @@ const addCarrot = function() {
         });
         
         console.log("carrot added: " + carrotCount);
-        var posLeft = 100 + (rand * 25) + (rand * 50);
+        var posLeft = spawnRand + (rand * 25) + (rand * 50);
         carrotPos[carrotCount] = posLeft;
         console.log(carrotPos[carrotCount]);
         console.log(carrotPos);
