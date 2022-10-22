@@ -62,14 +62,14 @@ hr{
 }
 #questionHover{
     position: absolute;
+    bottom: 5px;
+    right: 10px;
     background: #ebf4fa;
     color: #f08080;
     display: flex;
     flex-direction: column;
     opacity: 0;
     transition: opacity .35s;
-    right: 0;
-    left: 0;
     height: 100%;
     width: 100%;
 }
