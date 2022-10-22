@@ -15,7 +15,7 @@ html *{
     /*border: 5px solid purple;*/
     font-size: 15px;
     border-radius: 12px;
-    width: 50%;
+    width: 65%;
 }
 #drop:hover{
     color: white;
@@ -28,7 +28,7 @@ html *{
     /*border: 5px solid purple;*/
     font-size: 15px;
     border-radius: 12px;
-    width: 50%;
+    width: 65%;
 }
 #feed:hover{
     color: white;
