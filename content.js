@@ -1,7 +1,6 @@
 var axlImg = chrome.runtime.getURL('/images/pet_axolotl.png');
 var carrotImg = chrome.runtime.getURL("./images/carrot1.png");
 
-
 const addPet = function(){
     $(document).ready(function readyHandler() {
         var container = $("<div class='axl-container'></div>");
@@ -101,7 +100,6 @@ function pop(rand) {
     }
 
 }
-
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
     console.log("recieved message from " + sender);
