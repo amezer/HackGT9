@@ -11,7 +11,7 @@ hr{
     background-color: #ffb7bd;
     margin-bottom: 5px;
     font-size: 17px;
-    color: black;
+    color: white;
     border-bottom: 10px red;
     text-align: center;
 }
@@ -53,4 +53,9 @@ hr{
 #axolotl{
     width: 200px;
     height: 200px;
+}
+#questionMark{
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
