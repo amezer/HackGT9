@@ -10,29 +10,31 @@ html *{
 }
 #drop{
     color: black;
-    background-color: #ffb7bd;
+    background-color: white;
     padding: 10px, 5px;
     /*border: 5px solid purple;*/
     font-size: 15px;
     border-radius: 12px;
     width: 65%;
+    margin: 5px;
 }
 #drop:hover{
     color: white;
-    background-color: crimson;
+    background-color: #f08080;
 }
 #feed{
     color: black;
-    background-color: #ffb7bd;
+    background-color: white;
     padding: 10px, 5px;
     /*border: 5px solid purple;*/
     font-size: 15px;
     border-radius: 12px;
     width: 65%;
+    margin: 5px;
 }
 #feed:hover{
     color: white;
-    background-color: crimson;
+    background-color: #f08080;
 }
 #axolotl{
     width: 200px;
