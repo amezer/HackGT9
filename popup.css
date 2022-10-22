@@ -18,3 +18,7 @@ html *{
     color: gold;
     background-color: crimson;
 }
+#axolotl{
+    width: 50px;
+    height: 600px;
+}
