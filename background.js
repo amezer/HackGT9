@@ -1,15 +1,3 @@
-// chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-//     if (changeInfo.status == 'complete' && tab.active) {
-//         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-//             chrome.scripting.executeScript({
-//                 target: { tabId: tabs[0].id },
-//                 //func : addImg
-//                 //files: ['content.js']
-//             });
-//         });
-//     }
-// });
-
 chrome.omnibox.onInputStarted.addListener(function() {
     chrome.omnibox.setDefaultSuggestion({
         description: 'text',
