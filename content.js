@@ -24,8 +24,6 @@ const addPet = function() {
             "height": "auto"
         });
 
-
-
         function walk() {
             if ($('.axl-container').offset().left > window.screen.availWidth) {
 
@@ -38,15 +36,12 @@ const addPet = function() {
     }, () => chrome.runtime.lastError);
 }
 
-
-
 const addCarrot = function() {
 
     let rand = randomIntFromInterval(-1, 1);
     while (rand < 0.5 && rand > -0.5) {
         rand = randomIntFromInterval(-1, 1);
     }
-
 
     var container = $("<div class='carrot-container'></div>");
 
@@ -84,9 +79,6 @@ const addCarrot = function() {
 function randomIntFromInterval(min, max) { // min and max included 
     return (Math.random() * (max - min + 1) + min)
 }
-
-
-
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
     console.log("recieved message from " + sender);

@@ -1,5 +1,6 @@
-html *{
+ *{
     background-color: #ffb7bd;
+    font-family: 'Dosis', sans-serif;
 }
 hr{
     background-color: white;
@@ -22,7 +23,7 @@ hr{
    background-color:none ;
     
 }
-#drop{
+.action-btn{
     color: black;
     background-color: white;
     padding: 10px, 5px;
@@ -32,21 +33,7 @@ hr{
     width: 65%;
     margin: 5px;
 }
-#drop:hover{
-    color: white;
-    background-color: #f08080;
-}
-#feed{
-    color: black;
-    background-color: white;
-    padding: 10px, 5px;
-    /*border: 5px solid purple;*/
-    font-size: 15px;
-    border-radius: 12px;
-    width: 65%;
-    margin: 5px;
-}
-#feed:hover{
+.action-btn:hover{
     color: white;
     background-color: #f08080;
 }
@@ -60,8 +47,6 @@ hr{
     right: 10px;
     font-size: 27px;
 }
-
-
 #questionHover{
     position: absolute;
     background: #ebf4fa;
@@ -74,6 +59,4 @@ hr{
     bottom: 20px;
     top: 50px;
     left: 8px;
-    /*margin: 25%; */
-    /*align-self: center; */
 }
