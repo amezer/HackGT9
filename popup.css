@@ -2,11 +2,11 @@ html *{
     background-color: #ffb7bd;
 }
 .columnItems{
-    align-items: center;
-    flex: 0 0 200px;
-    column-count: 1;
-    column-span: all;
-    column-width: 70%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background-color:black ;
+    
 }
 #drop{
     color: black;
