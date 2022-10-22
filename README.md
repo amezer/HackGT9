@@ -2,4 +2,4 @@
 # HackGT9
 # testing
 
-winnable
+winnable test
