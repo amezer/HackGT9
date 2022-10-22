@@ -9,3 +9,10 @@ chrome.storage.sync.get('positionLeft', function(result) {
     }
     
 });
+
+
+let mark = document.getElementById('questionMark');
+let block = document.getElementById('questionHover');
+mark.style.cursor = "pointer"
+mark.onmouseenter = function(){block.style.opacity = 1;};
+mark.onmouseleave = function(){block.style.opacity = 0;};
