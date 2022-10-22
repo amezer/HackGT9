@@ -18,7 +18,8 @@
     },
     "permissions": [
         "tabs",
-        "scripting"
+        "scripting",
+        "storage"
     ],
     "host_permissions" : [
         "<all_urls>"
@@ -27,6 +28,14 @@
         {
             "resources" : ["/images/*"],
             "matches": ["<all_urls>"]
+        }
+    ],
+    "omnibox": { "keyword" : "axolotl" },
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "css": ["style.css"],
+          "js": ["jquery-3.6.1.min.js", "content.js"]
         }
     ]
 }
