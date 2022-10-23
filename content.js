@@ -4,9 +4,39 @@ var carrotCount = 0;
 const maxCarrot = 10;
 var canAdd = true;
 var speed = 5;
+var move;
+var axlLeft = 0;
+var isChangingColor = false;
+var windowWidth = window.screen.availWidth + 25;
+var faceRight = true;
+var animating = false;
+function walk() {
+    checkCarrotPos(axlLeft);
+    if (faceRight && (axlLeft < windowWidth)) {
+        //go right 
+        $('.axl-container').animate({ left: "+=" + speed }, 50, function(){axlLeft += speed});
+    } else if (axlLeft > windowWidth) {
+        //face left
+        $('#axl').css({
+            "transform" : "scaleX(1)"
+        });
+        faceRight = false;
+    } 
+    if (!faceRight && (axlLeft > -50)){
+        //go left
+        $('.axl-container').animate({ left: "-=" + speed }, 50, function(){axlLeft -= speed});
+    } else if (axlLeft < -50) {
+        //go right
+        $('#axl').css({
+            "transform" : "scaleX(-1)"
+        });
+        faceRight = true;
+    }
+}
+//document.head.appendChild()
 const addPet = function() {
     $(document).ready(function readyHandler() {
-        if (canAdd) {
+        if (canAdd && $(".axl-container").length == 0) {
             var container = $("<div class='axl-container' id='axl-cont'></div>");
             // initialize pet
             $("body").parent().append(container);
@@ -23,44 +53,25 @@ const addPet = function() {
                 "bottom": "-3px"
             });
             $("#axl").css({
-                "width": "150%",
+                "width": "50%",
                 "height": "auto",
                 "position": "relative",
                 "transform" : "scaleX(-1)"
             });
-
-            console.log(window.screen.availWidth);
-            var axlLeft = 0;
-            var windowWidth = window.screen.availWidth + 25;
-            var faceRight = true;
             canAdd = false;
-            
-            function walk() {
-                checkCarrotPos(axlLeft);
-                if (faceRight && (axlLeft < windowWidth)) {
-                    //go right 
-                    $('.axl-container').animate({ left: "+=" + speed }, 50, function(){axlLeft += speed});
-                } else if (axlLeft > windowWidth) {
-                    //face left
-                    $('#axl').css({
-                        "transform" : "scaleX(1)"
-                    });
-                    faceRight = false;
-                } 
-                if (!faceRight && (axlLeft > -50)){
-                    //go left
-                    $('.axl-container').animate({ left: "-=" + speed }, 50, function(){axlLeft -= speed});
-                } else if (axlLeft < -50) {
-                    //go right
-                    $('#axl').css({
-                        "transform" : "scaleX(-1)"
-                    });
-                    faceRight = true;
-                }
+            if (!animating){
+                move = setInterval(walk, 50);
             }
-            setInterval(walk, 50);
+        } else if (canAdd && $(".axl-container").length != 0){
+            $(".axl-container").css({
+                "display": "block"
+            });
+            canAdd = false;
         } else {
-            document.getElementsByClassName('axl-container')[0].remove();
+            //document.getElementsByClassName('axl-container')[0].remove();
+            $(".axl-container").css({
+                "display": "none"
+            });
             canAdd = true;
         }
     }, () => chrome.runtime.lastError);
@@ -150,6 +161,41 @@ function checkCarrotPos(axlLeft){
     }
 }
 
+const workout = function() {
+    //change axl img to workout
+    //clearInterval(move);
+    speed = 0
+    axlImg = chrome.runtime.getURL('/images/axolotl_gym_spin.gif');
+    $("#axl").attr("src",axlImg);
+    animating = true;
+    setTimeout(function(){
+        axlImg = chrome.runtime.getURL('/images/axolotl_gym_bench.gif');
+        $("#axl").attr("src",axlImg);
+        console.log('after 0.5s');
+    }, 500);
+
+    setTimeout(function(){
+        axlImg = chrome.runtime.getURL('/images/axolotl_gym_spinR.gif');
+        $("#axl").attr("src",axlImg);
+        console.log('after 10s');
+        setTimeout(function(){
+            speed = 5;
+            axlImg = chrome.runtime.getURL('/images/axolotl.gif');
+            $("#axl").attr("src",axlImg);
+            //move = setInterval(walk, 50);
+            console.log('after 0.5s');
+            animating = false;
+        }, 500);
+    }, 10000);
+}
+
+const changeColor = function() {
+    if (!isChangingColor) {
+        //change color
+        document.getElementsByClassName('axl-container')[0].classList.add('disco');
+    }
+}
+
 chrome.runtime.onMessage.addListener(function(request, sender) {
     console.log("recieved message from " + sender);
     console.log(request.message);
@@ -159,5 +205,13 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
 
     if (request.message === "drop") {
         addPet();
+    }
+
+    if (request.message === "gym") {
+        workout();
+    }
+
+    if (request.message === "disco") {
+        changeColor();
     }
 });
