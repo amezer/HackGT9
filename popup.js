@@ -19,6 +19,14 @@ feedBtn.onclick = function(){
     });
 }
 
+var gymBtn = document.getElementById('gym');
+gymBtn.onclick = function(){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        console.log("sending gym to content...");
+        chrome.tabs.sendMessage(tabs[0].id, {message: "gym"});
+    });
+}
+
 var info = document.getElementById('questionHover');
 var mark = document.getElementById('questionMark');
 mark.style.cursor = "pointer"
