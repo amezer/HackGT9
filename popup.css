@@ -14,25 +14,24 @@
      background-color: none;
  }
  
- .action-btn {
-     border-radius: 12px;
-     width: 65%;
-     height: 37px;
-     margin: 5px;
-     font-family: 'DotGothic16', sans-serif;
-     font-weight: normal;
-     background-image: url("/images/emptyButton2.png");
-     background-position: center;
+ .button {
+     margin-top: 10px;
  }
  
- .action-btn:hover {
-     /* color: white;
-    background-color: #f08080; */
+ .button:hover {
      cursor: pointer;
  }
  
- .action-btn:active:hover {
-     background-image: url("/images/emptyButton1.png");
+ #drop:active {
+     content: url("/images/dropDown.png");
+ }
+ 
+ #feed:active {
+     content: url("/images/feedDown.png");
+ }
+ 
+ #gym:active {
+     content: url("/images/gymDown.png");
  }
  
  #axolotl {
