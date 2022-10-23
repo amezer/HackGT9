@@ -171,7 +171,19 @@ function checkCarrotPos(axlLeft){
 }
 
 const explode = function() {
-
+    speed = 0;
+    axlImg = chrome.runtime.getURL('/images/axlRebirth.gif');
+    $("#axl").attr("src",axlImg);
+    setTimeout(function(){
+        speed = 5;
+        axlImg = chrome.runtime.getURL('/images/axolotl.gif');
+        $("#axl").attr("src",axlImg);
+        carrotCount = 0;
+        console.log('after 4.4s');
+        chrome.storage.sync.set({calories: carrotsConsumed}, function() {
+            console.log('calories is set to ' + carrotsConsumed);
+        });
+    }, 4400);
 }
 
 const workout = function() {
@@ -217,6 +229,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
 
     if (request.message === "gym") {
         workout();
+    }
+
+    if (request.message === "explode") {
+        explode();
     }
     // if (request.from === "popup" && request.subject === "calories") {
     //     response({calories: carrotsConsumed});

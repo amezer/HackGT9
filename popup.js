@@ -44,7 +44,7 @@ mark.onmouseleave = function() {
 window.addEventListener('DOMContentLoaded', () => {
     chrome.storage.sync.get(['calories'], function(result) {
         if (result.calories != 0) {
-            chrome.storage.sync.set({calories: carrotsConsumed}, function() {
+            chrome.storage.sync.set({calories: 0}, function() {
                 console.log('calories is set to ' + carrotsConsumed);
             });
         }
@@ -52,12 +52,21 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function updateCalories(){
+    var calories;
     chrome.storage.sync.get(['calories'], function(result) {
         //console.log(result);
         //calories = result.calories;
         document.getElementById('calories').innerHTML = result.calories;
         //$('.calories').text(result.calories);
         console.log('calories currently is ' + result.calories);
+        calories = result.calories;
+        if (calories >= 5) {
+            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                console.log("sending explode to content...");
+                calories = 0;
+                chrome.tabs.sendMessage(tabs[0].id, { message: "explode", sender: "popup.js"});
+            });
+        }
     });
 }
 // var calories = 0;
