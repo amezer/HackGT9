@@ -2,6 +2,11 @@
 # HackGT9
 # testing
 
-winnable test
+# Axowotl
+> A Google Chrome extension that displays an animated cartoon pet axolotl on your screen as you surf the web! Inspired by retro Tamagotchi games, Axowotl provides you the ultimate experience to take care of your new pet!
 
-hifromavery
+
+## Features
+- Feed the Axowotl delicious carrots!
+- Keep the Axowotl in prime shape by watching him workout!
+- Transform your mouse into a carrot!
