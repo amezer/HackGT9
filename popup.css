@@ -47,6 +47,20 @@
      font-size: 27px;
  }
  
+ #life {
+     display: flex;
+     flex-direction: row;
+     position: absolute;
+     bottom: 5px;
+     left: 10px;
+     font-size: 27px;
+ }
+ 
+ #calories {
+     font-size: 15px;
+     margin-left: 10px;
+ }
+ 
  #questionHover {
      position: absolute;
      background: #ebf4fa;

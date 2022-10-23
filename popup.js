@@ -24,7 +24,7 @@ var gymBtn = document.getElementById('gym');
 gymBtn.onclick = function() {
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         console.log("sending gym to content...");
-        chrome.tabs.sendMessage(tabs[0].id, { message: "gym", sender: "popup.js"});
+        chrome.tabs.sendMessage(tabs[0].id, { message: "gym", sender: "popup.js" });
     });
 }
 
@@ -44,14 +44,15 @@ mark.onmouseleave = function() {
 window.addEventListener('DOMContentLoaded', () => {
     chrome.storage.sync.get(['calories'], function(result) {
         if (result.calories != 0) {
-            chrome.storage.sync.set({calories: 0}, function() {
+            chrome.storage.sync.set({ calories: 0 }, function() {
                 console.log('calories is set to ' + carrotsConsumed);
             });
         }
     });
 });
+var flag = 0;
 
-function updateCalories(){
+function updateCalories() {
     var calories;
     chrome.storage.sync.get(['calories'], function(result) {
         //console.log(result);
@@ -61,11 +62,15 @@ function updateCalories(){
         console.log('calories currently is ' + result.calories);
         calories = result.calories;
         if (calories >= 5) {
-            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-                console.log("sending explode to content...");
-                calories = 0;
-                chrome.tabs.sendMessage(tabs[0].id, { message: "explode", sender: "popup.js"});
-            });
+            if (flag == 0) {
+                flag = 1;
+                chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                    console.log("sending explode to content...");
+                    calories = 0;
+                    chrome.tabs.sendMessage(tabs[0].id, { message: "explode", sender: "popup.js" });
+                });
+            }
+
         }
     });
 }
@@ -76,7 +81,7 @@ setInterval(updateCalories, 500);
 // var setCalories = info => {
 //     console.log("calories: " + info.calories);
 //     document.getElementById('calories').innerHTML = info.calories;
-    
+
 // }
 
 // window.addEventListener('DOMContentLoaded', () => {
@@ -95,4 +100,3 @@ setInterval(updateCalories, 500);
 //           setCalories);
 //     });
 //   });
-  

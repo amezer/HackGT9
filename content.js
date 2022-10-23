@@ -12,25 +12,26 @@ var isChangingColor = false;
 var windowWidth = window.screen.availWidth + 25;
 var faceRight = true;
 var animating = false;
+
 function walk() {
     checkCarrotPos(axlLeft);
     if (faceRight && (axlLeft < windowWidth)) {
         //go right 
-        $('.axl-container').animate({ left: "+=" + speed }, 50, function(){axlLeft += speed});
+        $('.axl-container').animate({ left: "+=" + speed }, 50, function() { axlLeft += speed });
     } else if (axlLeft > windowWidth) {
         //face left
         $('#axl').css({
-            "transform" : "scaleX(1)"
+            "transform": "scaleX(1)"
         });
         faceRight = false;
-    } 
-    if (!faceRight && (axlLeft > -50)){
+    }
+    if (!faceRight && (axlLeft > -50)) {
         //go left
-        $('.axl-container').animate({ left: "-=" + speed }, 50, function(){axlLeft -= speed});
+        $('.axl-container').animate({ left: "-=" + speed }, 50, function() { axlLeft -= speed });
     } else if (axlLeft < -50) {
         //go right
         $('#axl').css({
-            "transform" : "scaleX(-1)"
+            "transform": "scaleX(-1)"
         });
         faceRight = true;
     }
@@ -42,7 +43,7 @@ const addPet = function() {
             var container = $("<div class='axl-container' id='axl-cont'></div>");
             // initialize pet
             $("body").parent().append(container);
-            var cursor = chrome.runtime.getURL("./images/carrot1.png");
+            var cursor = chrome.runtime.getURL("./images/cursor.png");
             $("body").css({
                 "cursor": 'url(' + cursor + '), default'
             })
@@ -58,13 +59,13 @@ const addPet = function() {
                 "width": "50%",
                 "height": "auto",
                 "position": "relative",
-                "transform" : "scaleX(-1)"
+                "transform": "scaleX(-1)"
             });
             canAdd = false;
-            if (!animating){
+            if (!animating) {
                 move = setInterval(walk, 50);
             }
-        } else if (canAdd && $(".axl-container").length != 0){
+        } else if (canAdd && $(".axl-container").length != 0) {
             $(".axl-container").css({
                 "display": "block"
             });
@@ -80,7 +81,7 @@ const addPet = function() {
 }
 const carrotPos = [];
 
-const avaliablePos = [0,0,0,0,0,0,0,0,0,0];
+const avaliablePos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 const addCarrot = function() {
     let rand = randomIntFromInterval(-1, 1);
@@ -92,41 +93,41 @@ const addCarrot = function() {
     console.log(randPos)
     while (avaliablePos[randPos] != 0) {
         randPos = Math.floor(randomIntFromInterval(0, 9));
-    } 
+    }
     console.log(randPos);
-    if (carrotCount == (maxCarrotOnScreen-1)) {
+    if (carrotCount == (maxCarrotOnScreen - 1)) {
         console.log('no more carrots!');
     } else {
-        var container = $('<div class="carrot-container" id="carrot-'+randPos+'"></div>');
+        var container = $('<div class="carrot-container" id="carrot-' + randPos + '"></div>');
         // initialize pet
         $("body").parent().append(container);
-    
-        $('#carrot-'+randPos).prepend($('<img>', { id: "carrot", src: carrotImg }));
-        $('#carrot-'+randPos).css({
-            "z-index": "9999",
+
+        $('#carrot-' + randPos).prepend($('<img>', { id: "carrot", src: carrotImg }));
+        $('#carrot-' + randPos).css({
+            "z-index": "9998",
             "position": "fixed",
             "touch-action": "none",
-            "left": spawnRand +'px',
+            "left": spawnRand + 'px',
             "bottom": '300px'
         });
-    
-        $('#carrot-'+randPos).animate({ bottom: "+=" + 65 + "px", left: "+=" + rand * 25 + "px" }, {
+
+        $('#carrot-' + randPos).animate({ bottom: "+=" + 65 + "px", left: "+=" + rand * 25 + "px" }, {
             duration: 400,
             specialEasing: {
                 top: "easeOutQuad",
                 left: "linear",
             },
-    
+
         });
-        $('#carrot-'+randPos).animate({ bottom: "0", left: "+=" + rand * 50 + "px" }, {
+        $('#carrot-' + randPos).animate({ bottom: "0", left: "+=" + rand * 50 + "px" }, {
             duration: 800,
             specialEasing: {
                 bottom: "easeOutBounce",
                 left: "linear",
             },
-    
+
         });
-        
+
         console.log("carrot added at pos: " + randPos);
         var posLeft = spawnRand + (rand * 25) + (rand * 50);
         carrotPos[randPos] = posLeft;
@@ -141,15 +142,15 @@ function randomIntFromInterval(min, max) { // min and max included
     return (Math.random() * (max - min + 1) + min)
 }
 
-function checkCarrotPos(axlLeft){
+function checkCarrotPos(axlLeft) {
     for (let i = 0; i < avaliablePos.length; i++) {
         var cPos = carrotPos[i];
         if (avaliablePos[i] == 1) {
-            var upper = Math.floor(cPos)+speed;
-            var lower = Math.floor(cPos)-speed;
-            if ((axlLeft >= lower) && (axlLeft <= upper)){
+            var upper = Math.floor(cPos) + speed;
+            var lower = Math.floor(cPos) - speed;
+            if ((axlLeft >= lower) && (axlLeft <= upper)) {
                 console.log('touched carrot-' + i);
-                if (document.getElementById('carrot-' + i)){
+                if (document.getElementById('carrot-' + i)) {
                     console.log("upper bound: " + upper + " lower bound: " + lower);
                     console.log(axlLeft);
                     document.getElementById('carrot-' + i).remove();
@@ -157,7 +158,7 @@ function checkCarrotPos(axlLeft){
                     console.log("carrot deleted: " + i + " axl pos: " + axlLeft);
                     avaliablePos[i] = 0;
                     carrotsConsumed++;
-                    chrome.storage.sync.set({calories: carrotsConsumed}, function() {
+                    chrome.storage.sync.set({ calories: carrotsConsumed }, function() {
                         console.log('calories is set to ' + carrotsConsumed);
                     });
                     console.log("updated: " + carrotPos);
@@ -173,14 +174,14 @@ function checkCarrotPos(axlLeft){
 const explode = function() {
     speed = 0;
     axlImg = chrome.runtime.getURL('/images/axlRebirth.gif');
-    $("#axl").attr("src",axlImg);
-    setTimeout(function(){
+    $("#axl").attr("src", axlImg);
+    setTimeout(function() {
         speed = 5;
         axlImg = chrome.runtime.getURL('/images/axolotl.gif');
-        $("#axl").attr("src",axlImg);
+        $("#axl").attr("src", axlImg);
         carrotCount = 0;
         console.log('after 4.4s');
-        chrome.storage.sync.set({calories: carrotsConsumed}, function() {
+        chrome.storage.sync.set({ calories: carrotsConsumed }, function() {
             console.log('calories is set to ' + carrotsConsumed);
         });
     }, 4400);
@@ -189,25 +190,25 @@ const explode = function() {
 const workout = function() {
     speed = 0
     axlImg = chrome.runtime.getURL('/images/axolotl_gym_spin.gif');
-    $("#axl").attr("src",axlImg);
+    $("#axl").attr("src", axlImg);
     animating = true;
-    setTimeout(function(){
+    setTimeout(function() {
         axlImg = chrome.runtime.getURL('/images/axolotl_gym_bench.gif');
-        $("#axl").attr("src",axlImg);
+        $("#axl").attr("src", axlImg);
         console.log('after 0.5s');
     }, 500);
 
-    setTimeout(function(){
+    setTimeout(function() {
         axlImg = chrome.runtime.getURL('/images/axolotl_gym_spinR.gif');
-        $("#axl").attr("src",axlImg);
+        $("#axl").attr("src", axlImg);
         console.log('after 10s');
-        setTimeout(function(){
+        setTimeout(function() {
             speed = 5;
             axlImg = chrome.runtime.getURL('/images/axolotl.gif');
-            $("#axl").attr("src",axlImg);
+            $("#axl").attr("src", axlImg);
             //move = setInterval(walk, 50);
             carrotsConsumed -= 3;
-            chrome.storage.sync.set({calories: carrotsConsumed}, function() {
+            chrome.storage.sync.set({ calories: carrotsConsumed }, function() {
                 console.log('calories is set to ' + carrotsConsumed);
             });
             console.log('after 0.5s');
