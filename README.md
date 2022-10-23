@@ -8,5 +8,5 @@
 
 ## Features
 - Feed the Axowotl delicious carrots!
-- Keep the Axowotl in prime shape by watching him workout!
+- Keep the Axowotl in prime shape by watching it workout!
 - Transform your mouse into a carrot!
