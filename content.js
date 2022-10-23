@@ -3,6 +3,7 @@ var carrotImg = chrome.runtime.getURL("./images/carrot1.png");
 var carrotCount = 0;
 const maxCarrot = 10;
 var canAdd = true;
+var speed = 5;
 const addPet = function() {
     $(document).ready(function readyHandler() {
         if (canAdd) {
@@ -33,11 +34,12 @@ const addPet = function() {
             var windowWidth = window.screen.availWidth + 25;
             var faceRight = true;
             canAdd = false;
+            
             function walk() {
                 checkCarrotPos(axlLeft);
                 if (faceRight && (axlLeft < windowWidth)) {
                     //go right 
-                    $('.axl-container').animate({ left: "+=3" }, 50, function(){axlLeft += 3});
+                    $('.axl-container').animate({ left: "+=" + speed }, 50, function(){axlLeft += speed});
                 } else if (axlLeft > windowWidth) {
                     //face left
                     $('#axl').css({
@@ -45,10 +47,10 @@ const addPet = function() {
                     });
                     faceRight = false;
                 } 
-                if (!faceRight && (axlLeft > -30)){
+                if (!faceRight && (axlLeft > -50)){
                     //go left
-                    $('.axl-container').animate({ left: "-=3" }, 50, function(){axlLeft -= 3});
-                } else if (axlLeft < -30) {
+                    $('.axl-container').animate({ left: "-=" + speed }, 50, function(){axlLeft -= speed});
+                } else if (axlLeft < -50) {
                     //go right
                     $('#axl').css({
                         "transform" : "scaleX(-1)"
@@ -65,21 +67,29 @@ const addPet = function() {
 }
 const carrotPos = [];
 
+const avaliablePos = [0,0,0,0,0,0,0,0,0,0];
+
 const addCarrot = function() {
     let rand = randomIntFromInterval(-1, 1);
     while (rand < 0.5 && rand > -0.5) {
         rand = randomIntFromInterval(-1, 1);
     }
     let spawnRand = randomIntFromInterval(100, 800);
+    var randPos = Math.floor(randomIntFromInterval(0, 9));
+    console.log(randPos)
+    while (avaliablePos[randPos] != 0) {
+        randPos = Math.floor(randomIntFromInterval(0, 9));
+    } 
+    console.log(randPos);
     if (carrotCount == (maxCarrot-1)) {
         console.log('no more carrots!');
     } else {
-        var container = $('<div class="carrot-container" id="carrot-'+carrotCount+'"></div>');
+        var container = $('<div class="carrot-container" id="carrot-'+randPos+'"></div>');
         // initialize pet
         $("body").parent().append(container);
     
-        $('#carrot-'+carrotCount).prepend($('<img>', { id: "carrot", src: carrotImg }));
-        $('#carrot-'+carrotCount).css({
+        $('#carrot-'+randPos).prepend($('<img>', { id: "carrot", src: carrotImg }));
+        $('#carrot-'+randPos).css({
             "z-index": "9999",
             "position": "fixed",
             "touch-action": "none",
@@ -87,7 +97,7 @@ const addCarrot = function() {
             "bottom": '300px'
         });
     
-        $('#carrot-'+carrotCount).animate({ bottom: "+=" + 65 + "px", left: "+=" + rand * 25 + "px" }, {
+        $('#carrot-'+randPos).animate({ bottom: "+=" + 65 + "px", left: "+=" + rand * 25 + "px" }, {
             duration: 400,
             specialEasing: {
                 top: "easeOutQuad",
@@ -95,7 +105,7 @@ const addCarrot = function() {
             },
     
         });
-        $('#carrot-'+carrotCount).animate({ bottom: "0", left: "+=" + rand * 50 + "px" }, {
+        $('#carrot-'+randPos).animate({ bottom: "0", left: "+=" + rand * 50 + "px" }, {
             duration: 800,
             specialEasing: {
                 bottom: "easeOutBounce",
@@ -104,12 +114,13 @@ const addCarrot = function() {
     
         });
         
-        console.log("carrot added: " + carrotCount);
+        console.log("carrot added at pos: " + randPos);
         var posLeft = spawnRand + (rand * 25) + (rand * 50);
-        carrotPos[carrotCount] = posLeft;
-        console.log(carrotPos[carrotCount]);
+        carrotPos[randPos] = posLeft;
+        console.log(carrotPos[randPos]);
         console.log(carrotPos);
         carrotCount += 1;
+        avaliablePos[randPos] = 1;
     }
 }
 
@@ -118,20 +129,20 @@ function randomIntFromInterval(min, max) { // min and max included
 }
 
 function checkCarrotPos(axlLeft){
-    for (let i = 0; i < carrotPos.length; i++) {
+    for (let i = 0; i < avaliablePos.length; i++) {
         var cPos = carrotPos[i];
-        if (carrotPos[i] > 0) {
-            console.log(axlLeft);
-            var upper = Math.floor(cPos)+1;
-            var lower = Math.floor(cPos)-1;
-            console.log("upper bound: " + upper + " lower bound: " + lower);
+        if (avaliablePos[i] == 1) {
+            var upper = Math.floor(cPos)+speed;
+            var lower = Math.floor(cPos)-speed;
             if ((axlLeft >= lower) && (axlLeft <= upper)){
                 console.log('touched carrot-' + i);
-                if ($('#carrot-' + i).length){
+                if (document.getElementById('carrot-' + i)){
+                    console.log("upper bound: " + upper + " lower bound: " + lower);
+                    console.log(axlLeft);
                     document.getElementById('carrot-' + i).remove();
                     carrotCount--;
                     console.log("carrot deleted: " + i + " axl pos: " + axlLeft);
-                    carrotPos[i] = -100;
+                    avaliablePos[i] = 0;
                     console.log("updated: " + carrotPos);
                 }
             }
