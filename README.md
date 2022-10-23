@@ -2,7 +2,7 @@
 > A Google Chrome extension that displays an animated cartoon pet axolotl on your screen as you surf the web! Axowotl provides you the ultimate experience to take care of your new pet!
 
 
-![Axowotl Screenshot](https://user-images.githubusercontent.com/116392808/197372277-4412a63a-a04e-41f0-9fac-5620996d9d6e.png)
+![Axowotl Retro Screenshot](https://user-images.githubusercontent.com/116392808/197382970-b4b14fbc-cb28-43b6-861e-be26d6b529e2.png)
 
 
 ## General Information
