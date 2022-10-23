@@ -1,15 +1,9 @@
-let mark = document.getElementById('questionMark');
-let block = document.getElementById('questionHover');
-mark.style.cursor = "pointer"
-mark.onmouseenter = function(){block.style.opacity = 1;};
-mark.onmouseleave = function(){block.style.opacity = 0;};
-
 var dropBtn = document.getElementById('drop');
 dropBtn.onclick = function(){
-    if (dropBtn.innerHTML === "drop") {
-        dropBtn.innerHTML = "hide"
+    if (dropBtn.innerHTML === "DROP") {
+        dropBtn.innerHTML = "HIDE"
     } else {
-        dropBtn.innerHTML = "drop"
+        dropBtn.innerHTML = "DROP"
     }
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         console.log("sending drop to content...");
@@ -24,3 +18,17 @@ feedBtn.onclick = function(){
         chrome.tabs.sendMessage(tabs[0].id, {message: "carrot"});
     });
 }
+
+var info = document.getElementById('questionHover');
+var mark = document.getElementById('questionMark');
+mark.style.cursor = "pointer"
+mark.onmouseenter = function() {
+    info.style.opacity = 1;
+    info.innerHTML = "<br> Not seeing the axolotl? <br><br>Try refreshing the page or visiting a new site!";
+    info.style.height = "205px";
+};
+mark.onmouseleave = function(){
+    info.style.opacity = 0;
+    info.innerHTML = '';
+    info.style.height = 0;
+};
