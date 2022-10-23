@@ -6,9 +6,9 @@
     "omnibox": { "keyword": "axl" },
     "action": {
         "default_icon": {
-            "16": "images/axolotl.png",
-            "24": "images/axolotl.png",
-            "32": "images/axolotl.png"
+            "16": "images/logo.png",
+            "24": "images/logo.png",
+            "32": "images/logo.png"
         },
         "default_title": "AXOWOTL",
         "default_popup": "popup.html"
