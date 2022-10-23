@@ -1,4 +1,4 @@
-var axlImg = chrome.runtime.getURL('/images/pet_axolotl.png');
+var axlImg = chrome.runtime.getURL('/images/axolotl.gif');
 var carrotImg = chrome.runtime.getURL("./images/carrot1.png");
 var carrotCount = 0;
 const maxCarrot = 10;
@@ -19,13 +19,13 @@ const addPet = function() {
                 "position": "fixed",
                 "touch-action": "none",
                 "left": '0px',
-                "bottom": "0"
+                "bottom": "-3px"
             });
             $("#axl").css({
-                "width": "77px",
+                "width": "150%",
                 "height": "auto",
-                "position": "relative"
-                //"top": 0
+                "position": "relative",
+                "transform" : "scaleX(-1)"
             });
 
             console.log(window.screen.availWidth);
@@ -41,17 +41,17 @@ const addPet = function() {
                 } else if (axlLeft > windowWidth) {
                     //face left
                     $('#axl').css({
-                        "transform" : "scaleX(-1)"
+                        "transform" : "scaleX(1)"
                     });
                     faceRight = false;
                 } 
-                if (!faceRight && (axlLeft > -20)){
+                if (!faceRight && (axlLeft > -30)){
                     //go left
                     $('.axl-container').animate({ left: "-=3" }, 50, function(){axlLeft -= 3});
-                } else if (axlLeft < -20) {
+                } else if (axlLeft < -30) {
                     //go right
                     $('#axl').css({
-                        "transform" : "scaleX(1)"
+                        "transform" : "scaleX(-1)"
                     });
                     faceRight = true;
                 }
