@@ -1,7 +1,9 @@
 var axlImg = chrome.runtime.getURL('/images/axolotl.gif');
 var carrotImg = chrome.runtime.getURL("./images/carrot1.png");
 var carrotCount = 0;
-const maxCarrot = 10;
+const maxCarrotOnScreen = 10;
+var carrotsConsumed = 0;
+const maxCarrotsAllowed = 30;
 var canAdd = true;
 var speed = 5;
 var move;
@@ -92,7 +94,7 @@ const addCarrot = function() {
         randPos = Math.floor(randomIntFromInterval(0, 9));
     } 
     console.log(randPos);
-    if (carrotCount == (maxCarrot-1)) {
+    if (carrotCount == (maxCarrotOnScreen-1)) {
         console.log('no more carrots!');
     } else {
         var container = $('<div class="carrot-container" id="carrot-'+randPos+'"></div>');
@@ -154,16 +156,25 @@ function checkCarrotPos(axlLeft){
                     carrotCount--;
                     console.log("carrot deleted: " + i + " axl pos: " + axlLeft);
                     avaliablePos[i] = 0;
+                    carrotsConsumed++;
+                    chrome.storage.sync.set({calories: carrotsConsumed}, function() {
+                        console.log('calories is set to ' + carrotsConsumed);
+                    });
                     console.log("updated: " + carrotPos);
+                    if (carrotsConsumed >= maxCarrotsAllowed) {
+                        explode();
+                    }
                 }
             }
         }
     }
 }
 
+const explode = function() {
+
+}
+
 const workout = function() {
-    //change axl img to workout
-    //clearInterval(move);
     speed = 0
     axlImg = chrome.runtime.getURL('/images/axolotl_gym_spin.gif');
     $("#axl").attr("src",axlImg);
@@ -183,22 +194,19 @@ const workout = function() {
             axlImg = chrome.runtime.getURL('/images/axolotl.gif');
             $("#axl").attr("src",axlImg);
             //move = setInterval(walk, 50);
+            carrotsConsumed -= 3;
+            chrome.storage.sync.set({calories: carrotsConsumed}, function() {
+                console.log('calories is set to ' + carrotsConsumed);
+            });
             console.log('after 0.5s');
             animating = false;
         }, 500);
     }, 10000);
 }
 
-const changeColor = function() {
-    if (!isChangingColor) {
-        //change color
-        document.getElementsByClassName('axl-container')[0].classList.add('disco');
-    }
-}
-
-chrome.runtime.onMessage.addListener(function(request, sender) {
-    console.log("recieved message from " + sender);
-    console.log(request.message);
+chrome.runtime.onMessage.addListener(function(request, sender, response) {
+    //console.log("recieved message from " + JSON.stringify(sender));
+    console.log(JSON.stringify(request));
     if (request.message === "carrot") {
         addCarrot()
     }
@@ -210,8 +218,7 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.message === "gym") {
         workout();
     }
-
-    if (request.message === "disco") {
-        changeColor();
-    }
+    // if (request.from === "popup" && request.subject === "calories") {
+    //     response({calories: carrotsConsumed});
+    // }
 });

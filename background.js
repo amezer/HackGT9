@@ -12,7 +12,7 @@ chrome.omnibox.onInputEntered.addListener((text) => {
 
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         console.log("sending " + text + " to content...")
-        chrome.tabs.sendMessage(tabs[0].id, { message: text })
+        chrome.tabs.sendMessage(tabs[0].id, { message: text, sender: "background.js"})
     });
 
 });
