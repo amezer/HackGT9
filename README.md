@@ -12,8 +12,19 @@
 
 ## Features
 - Feed the Axowotl delicious carrots!
-- Keep the Axowotl in prime shape by watching it workout!
+- Keep the Axowotl in prime shape by watching its workout!
+- Beware of its calories! Neglecting its health may cause it to pass away!
 - Transform your mouse into a carrot!
+- Search bar GUI
+
+
+## Setup and Usage
+- Download through Google Chrome
+- Once downloaded, launch the Axowotl extension by navigating to the extension icon in the Google Search toolbar at the top of one’s screen and selecting the respective icon
+- Setup Complete! Play around with the various buttons and features with ease!
+- Use the Search bar GUI by clicking the search bar at the top of the webpage and typing “axl” and clicking the “AXOWTL” search button and then type of the desired commands: “carrot”, “drop”, or “gym”
+
+
 
 
 
