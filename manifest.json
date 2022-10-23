@@ -1,16 +1,16 @@
 {
     "manifest_version": 3,
-    "name": "Chrome pet",
+    "name": "AXOWOTL",
     "version": "1.0.0",
     "description": "testout chrome pet stuff",
     "omnibox": { "keyword": "axl" },
     "action": {
         "default_icon": {
-            "16": "images/sketch_axolotl.png",
-            "24": "images/sketch_axolotl.png",
-            "32": "images/sketch_axolotl.png"
+            "16": "images/axolotl.png",
+            "24": "images/axolotl.png",
+            "32": "images/axolotl.png"
         },
-        "default_title": "Chrome pet",
+        "default_title": "AXOWOTL",
         "default_popup": "popup.html"
     },
 

@@ -21,25 +21,32 @@ hr{
    flex-direction: column;
    align-items: center;
    background-color:none ;
-    
 }
 .action-btn{
     color: black;
-    background-color: white;
     padding: 10px, 5px;
-    /*border: 5px solid purple;*/
     font-size: 15px;
+    border: 0;
     border-radius: 12px;
     width: 65%;
+    height: 37px;
     margin: 5px;
+    font-family: 'DotGothic16', sans-serif;
+    font-weight: normal;
+    background-image: url("/images/emptyButton2.png");
+    background-position: center;
 }
 .action-btn:hover{
-    color: white;
-    background-color: #f08080;
+    /* color: white;
+    background-color: #f08080; */
+    cursor: pointer;
+}
+.action-btn:active:hover{
+    background-image: url("/images/emptyButton1.png");
 }
 #axolotl{
     width: 200px;
-    height: 200px;
+    height: auto;
 }
 #questionMark{
     position: absolute;
@@ -53,8 +60,8 @@ hr{
     color: #f08080;
     opacity: 0;
     transition: opacity .35s;
-    height: 205px;
     width: 202px;
+    height: 0;
     right: 2px;
     bottom: 20px;
     top: 50px;
